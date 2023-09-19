@@ -1,10 +1,11 @@
-package com.example.e_reader;
+package com.example.e_reader.Activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.e_reader.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         this.bottomNavigationView
                 .setOnItemSelectedListener(this);
         this.bottomNavigationView.setSelectedItemId(R.id.item_2);
+
     }
 
     @SuppressLint("NonConstantResourceId")

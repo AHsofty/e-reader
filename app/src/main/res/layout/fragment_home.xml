@@ -5,20 +5,19 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".Activities.MainActivity">
 
-    <TextView
-            android:id="@+id/secondFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            android:textColor="#43a047"
-            android:textSize="40sp"
-            android:textStyle="italic|bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+            android:layout_width="43dp"
+            android:layout_height="55dp"
+            app:srcCompat="@drawable/ic_file_open"
+            android:id="@+id/importBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.956"
+            app:layout_constraintVertical_bias="0.023"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
