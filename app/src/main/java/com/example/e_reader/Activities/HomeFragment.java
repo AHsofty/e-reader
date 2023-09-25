@@ -17,13 +17,22 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import com.example.e_reader.Activities.Database.Book;
+import com.example.e_reader.Activities.Database.BookDao;
+import com.example.e_reader.Activities.Database.BookDatabase;
+import com.example.e_reader.Activities.Database.BookViewModel;
 import com.example.e_reader.R;
+
+import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
-    private static final int PICK_FILE_REQUEST_CODE = 100;
-    private static final int PERMISSION_REQUEST_CODE = 101;
     private Uri theBookFileUri;
+    private BookViewModel viewModel;
 
     public HomeFragment(){
         // require a empty public constructor
@@ -32,10 +41,10 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_home, container, false);
+        this.viewModel = new ViewModelProvider(this).get(BookViewModel.class);
 
         ImageView importView = rootview.findViewById(R.id.importBtn);
         importView.setOnClickListener(this::openFileDialog);
-
         return rootview;
     }
 
