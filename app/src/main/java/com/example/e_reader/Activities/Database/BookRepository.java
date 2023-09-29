@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BookRepository {
     private BookDao bookDao;
-    private LiveData<List<Book>> allBooks;
+    private LiveData<List<BookTable>> allBooks;
 
     public BookRepository(Application application) {
         BookDatabase db = BookDatabase.getInstance(application);
@@ -15,23 +15,23 @@ public class BookRepository {
         allBooks = bookDao.getAllBooks();
     }
 
-    public void insert(Book book) {
-        new Thread(() -> bookDao.insert(book)).start();
+    public void insert(BookTable bookTable) {
+        new Thread(() -> bookDao.insert(bookTable)).start();
     }
 
-    public void update(Book book) {
-        new Thread(() -> bookDao.update(book)).start();
+    public void update(BookTable bookTable) {
+        new Thread(() -> bookDao.update(bookTable)).start();
     }
 
-    public void delete(Book book) {
-        new Thread(() -> bookDao.delete(book)).start();
+    public void delete(BookTable bookTable) {
+        new Thread(() -> bookDao.delete(bookTable)).start();
     }
 
     public void deleteAllBooks() {
         new Thread(() -> bookDao.deleteAllBooks()).start();
     }
 
-    public LiveData<List<Book>> getAllBooks() {
+    public LiveData<List<BookTable>> getAllBooks() {
         return allBooks;
     }
 }

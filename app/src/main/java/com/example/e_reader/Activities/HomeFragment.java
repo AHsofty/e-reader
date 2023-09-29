@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +13,26 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.e_reader.Activities.Database.Book;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.e_reader.Activities.Database.BookTable;
 import com.example.e_reader.Activities.Database.BookViewModel;
+import com.example.e_reader.Activities.Recyclerviews.RecyclerviewAdapterHome;
 import com.example.e_reader.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
     private Uri theBookFileUri;
     private BookViewModel viewModel;
     private ActivityResultLauncher<Intent> sActivityResultLauncher;
+    private ArrayList<RecyclerviewAdapterHome.Data> data = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private RecyclerviewAdapterHome adapter;
+
 
 
     public HomeFragment() {
@@ -48,11 +54,13 @@ public class HomeFragment extends Fragment {
                             // Before we add a book to the database we check if the database already contains that book
                             // We can do this by checking if the URI is already in the database or not
                             if (books.stream().noneMatch(book -> book.getUri().equals(this.theBookFileUri.toString()))) {
-                                String title = this.theBookFileUri.getLastPathSegment();
-                                Book book = new Book();
-                                book.setUri(this.theBookFileUri.toString());
-                                book.setTitle(title);
-                                this.viewModel.insert(book);
+                                EpubParser epubParser = new EpubParser();
+                                String title = epubParser.getTitle(this.theBookFileUri, getContext());
+                                BookTable bookTable = new BookTable();
+                                bookTable.setUri(this.theBookFileUri.toString());
+                                bookTable.setTitle(title);
+                                this.viewModel.insert(bookTable);
+
                             }
                             else {
                                 Toast.makeText(getContext(), "You have already added the book you selected", Toast.LENGTH_SHORT).show();
@@ -70,16 +78,21 @@ public class HomeFragment extends Fragment {
         ImageView importView = rootview.findViewById(R.id.importBtn);
         importView.setOnClickListener(this::openFileDialog);
 
-        // Initialize the ViewModel with the activity's lifecycle
         this.viewModel = new ViewModelProvider(requireActivity()).get(BookViewModel.class);
 
-        // Observe the LiveData for books
         viewModel.getAllBooks().observe(getViewLifecycleOwner(), books -> {
-            for (Book book : books) {
-                // TODO: Add logic for a recyclerview with a bunch of cards for each book
-
+            data.clear();
+            for (BookTable bookTable : books) {
+                data.add(new RecyclerviewAdapterHome.Data(this.getContext(), bookTable));
+            }
+            if (adapter != null) {
+                adapter.notifyDataSetChanged();
             }
         });
+
+        recyclerView = rootview.findViewById(R.id.rviewHome);
+        adapter = new RecyclerviewAdapterHome(this.getContext(), data);
+        recyclerView.setAdapter(adapter);
 
         return rootview;
     }

@@ -8,17 +8,17 @@ import java.util.List;
 @Dao
 public interface BookDao {
     @Insert
-    void insert(Book book);
+    void insert(BookTable bookTable);
 
     @Update
-    void update(Book book);
+    void update(BookTable bookTable);
 
     @Delete
-    void delete(Book book);
+    void delete(BookTable bookTable);
 
     @Query("DELETE FROM book_table")
     void deleteAllBooks();
 
     @Query("SELECT * FROM book_table")
-    LiveData<List<Book>> getAllBooks();
+    LiveData<List<BookTable>> getAllBooks();
 }

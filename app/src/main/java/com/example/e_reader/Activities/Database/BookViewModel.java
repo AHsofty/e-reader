@@ -8,7 +8,7 @@ import java.util.List;
 
 public class BookViewModel extends AndroidViewModel {
     private BookRepository repository;
-    private LiveData<List<Book>> allBooks;
+    private LiveData<List<BookTable>> allBooks;
 
     public BookViewModel(Application application) {
         super(application);
@@ -16,23 +16,23 @@ public class BookViewModel extends AndroidViewModel {
         allBooks = repository.getAllBooks();
     }
 
-    public void insert(Book book) {
-        repository.insert(book);
+    public void insert(BookTable bookTable) {
+        repository.insert(bookTable);
     }
 
-    public void update(Book book) {
-        repository.update(book);
+    public void update(BookTable bookTable) {
+        repository.update(bookTable);
     }
 
-    public void delete(Book book) {
-        repository.delete(book);
+    public void delete(BookTable bookTable) {
+        repository.delete(bookTable);
     }
 
     public void deleteAllBooks() {
         repository.deleteAllBooks();
     }
 
-    public LiveData<List<Book>> getAllBooks() {
+    public LiveData<List<BookTable>> getAllBooks() {
         return allBooks;
     }
 }
