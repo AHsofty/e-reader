@@ -1,9 +1,8 @@
 package com.example.e_reader.Activities.Recyclerviews;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.e_reader.Activities.Activities.DetailActivity;
+import com.example.e_reader.Activities.BookTypes.BookParser;
 import com.example.e_reader.Activities.Database.BookTable;
-import com.example.e_reader.Activities.EpubParser;
+import com.example.e_reader.Activities.BookTypes.EpubParser;
 import com.example.e_reader.R;
+import nl.siegmann.epublib.domain.Book;
 
 import java.util.List;
 
@@ -50,11 +52,20 @@ public class RecyclerviewAdapterHome extends RecyclerView.Adapter<RecyclerviewAd
         // The image of the book is actually going to be the first page of the .epub file
         // The URI is actually a reference to the path of the .epub file
         // So all we have to do is store the first page of that .epub file into the holder.cardImage
-        EpubParser epubParser = new EpubParser();
-        Bitmap coverBitmap = epubParser.getEpubCoverImage(data.bookTable.getUri(), data.context);
+
+        BookParser epubParser = new EpubParser(); // TODO: This is hardcoded but eventually we don't want to hardcode the book type, instead we want to check for the type of the book and make a parser based on that
+
+        Bitmap coverBitmap = epubParser.getCoverImage(data.bookTable.getUri(), data.context);
         holder.cardImage.setImageBitmap(coverBitmap);
 
+        holder.card.setOnClickListener(view -> {
+            String bookUri = data.bookTable.getUri(); // We send this to the next activity, so we can know which book to query from the database
 
+            Intent intent = new Intent(data.context, DetailActivity.class);
+            intent.putExtra("bookUri", bookUri);
+            data.context.startActivity(intent);
+
+        });
     }
 
     // total number of rows

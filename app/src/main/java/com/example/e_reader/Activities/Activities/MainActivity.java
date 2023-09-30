@@ -1,4 +1,4 @@
-package com.example.e_reader.Activities;
+package com.example.e_reader.Activities.Activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

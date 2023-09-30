@@ -1,4 +1,4 @@
-package com.example.e_reader.Activities;
+package com.example.e_reader.Activities.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,12 +13,13 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.e_reader.Activities.BookTypes.BookParser;
 import com.example.e_reader.Activities.Database.BookTable;
 import com.example.e_reader.Activities.Database.BookViewModel;
+import com.example.e_reader.Activities.BookTypes.EpubParser;
 import com.example.e_reader.Activities.Recyclerviews.RecyclerviewAdapterHome;
 import com.example.e_reader.R;
 
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
                             // Before we add a book to the database we check if the database already contains that book
                             // We can do this by checking if the URI is already in the database or not
                             if (books.stream().noneMatch(book -> book.getUri().equals(this.theBookFileUri.toString()))) {
-                                EpubParser epubParser = new EpubParser();
+                                BookParser epubParser = new EpubParser(); // TODO: This is hardcoded but eventually we don't want to hardcode the book type, instead we want to check for the type of the book and make a parser based on that
                                 String title = epubParser.getTitle(this.theBookFileUri, getContext());
                                 BookTable bookTable = new BookTable();
                                 bookTable.setUri(this.theBookFileUri.toString());
