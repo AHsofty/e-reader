@@ -1,23 +1,24 @@
 package com.example.e_reader.Activities.BookTypes;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
 public interface BookParser {
-    Bitmap getCoverImage(String url, Context context);
+    Bitmap getCoverImage();
 
-    String getTitle(Uri uri, Context context);
+    String getTitle();
 
-    String getAuthor(Context context, Uri uri);
+    String getAuthor();
 
-    String getPublisher(Context context, Uri uri);
+    String getPublisher();
 
-    String getPublicationDate(Context context, Uri uri);
+    String getPublicationDate();
 
-    String getDescription(Context context, Uri uri);
+    String getDescription();
 
-    String getIdentifier(Context context, Uri uri);
+    String getIdentifier();
 
-    String getType(Context context, Uri uri);
+    String getType();
+
+    void setUri(Uri uri);
 }

@@ -3,6 +3,7 @@ package com.example.e_reader.Activities.Recyclerviews;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,9 +54,9 @@ public class RecyclerviewAdapterHome extends RecyclerView.Adapter<RecyclerviewAd
         // The URI is actually a reference to the path of the .epub file
         // So all we have to do is store the first page of that .epub file into the holder.cardImage
 
-        BookParser epubParser = new EpubParser(); // TODO: This is hardcoded but eventually we don't want to hardcode the book type, instead we want to check for the type of the book and make a parser based on that
+        BookParser epubParser = new EpubParser(data.context, Uri.parse(data.bookTable.getUri())); // TODO: This is hardcoded but eventually we don't want to hardcode the book type, instead we want to check for the type of the book and make a parser based on that
 
-        Bitmap coverBitmap = epubParser.getCoverImage(data.bookTable.getUri(), data.context);
+        Bitmap coverBitmap = epubParser.getCoverImage();
         holder.cardImage.setImageBitmap(coverBitmap);
 
         holder.card.setOnClickListener(view -> {

@@ -33,7 +33,7 @@ public class DetailActivity extends AppCompatActivity {
         this.viewModel = new ViewModelProvider(this).get(BookViewModel.class);
 
         String bookUri = getIntent().getStringExtra("bookUri");
-        BookParser bookParser = new EpubParser(); // TODO: This is hardcoded but eventually we don't want to hardcode the book type, instead we want to check for the type of the book and make a parser based on that
+        BookParser bookParser = new EpubParser(this, Uri.parse(bookUri)); // TODO: This is hardcoded but eventually we don't want to hardcode the book type, instead we want to check for the type of the book and make a parser based on that
 
         // Now we get the corresponding book object from the database
         // We can do this by querying the database for the book with the URI that we got from the intent
@@ -48,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
 
             if (book != null) {
                 String title = book.getTitle();
-                String author = bookParser.getAuthor(this, Uri.parse(book.getUri()));
+                String author = bookParser.getAuthor();
 
                 TextView titleTV = findViewById(R.id.detail_title);
                 TextView authorTV = findViewById(R.id.detail_author);
@@ -70,38 +70,38 @@ public class DetailActivity extends AppCompatActivity {
                     authorTV.setVisibility(View.GONE);
                 }
 
-                Bitmap coverImage = bookParser.getCoverImage(book.getUri(), this);
+                Bitmap coverImage = bookParser.getCoverImage();
                 if (coverImage != null) {
                     coverIV.setImageBitmap(coverImage);
                 } else {
                     coverIV.setVisibility(View.GONE);
                 }
 
-                String type = bookParser.getType(this, Uri.parse(book.getUri()));
+                String type = bookParser.getType();
                 typeTV.setText("Genre: " + type);
                 if ("[Unknown Type]".equals(type)) {
                     typeTV.setVisibility(View.GONE);
                 }
 
-                String publisher = bookParser.getPublisher(this, Uri.parse(book.getUri()));
+                String publisher = bookParser.getPublisher();
                 publisherTV.setText("Publisher: " + publisher);
                 if ("[Unknown Publisher]".equals(publisher)) {
                     publisherTV.setVisibility(View.GONE);
                 }
 
-                String publicationDate = bookParser.getPublicationDate(this, Uri.parse(book.getUri()));
+                String publicationDate = bookParser.getPublicationDate();
                 publicationDateTV.setText("Publication Date: " + publicationDate);
                 if ("[Unknown Date]".equals(publicationDate)) {
                     publicationDateTV.setVisibility(View.GONE);
                 }
 
-                String description = bookParser.getDescription(this, Uri.parse(book.getUri()));
+                String description = bookParser.getDescription();
                 descriptionTV.setText("Description: " + description);
                 if ("[Unknown Description]".equals(description)) {
                     descriptionTV.setVisibility(View.GONE);
                 }
 
-                String identifier = bookParser.getIdentifier(this, Uri.parse(book.getUri()));
+                String identifier = bookParser.getIdentifier();
                 identifierTV.setText("Identifier: " + identifier);
                 if ("[Unknown Identifier]".equals(identifier)) {
                     identifierTV.setVisibility(View.GONE);
