@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         sActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && MainActivity.hasPermissions) {
                         Intent data = result.getData();
                         this.theBookFileUri = data.getData();
 
@@ -77,7 +77,21 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_home, container, false);
         ImageView importView = rootview.findViewById(R.id.importBtn);
-        importView.setOnClickListener(this::openFileDialog);
+
+        importView.setOnClickListener(view -> {
+            if (!MainActivity.hasPermissions) {
+                Toast.makeText(getContext(), "You need to give the app permission to access your files", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                openFileDialog(view);
+            }
+        });
+
+        // If we don't have permissions we don't want to do continue
+        // Altough we could continue without the permissions, I don't want this becasue then I'd need to check for permissions everywhere
+        if (!MainActivity.hasPermissions) {
+            return rootview;
+        }
 
         this.viewModel = new ViewModelProvider(requireActivity()).get(BookViewModel.class);
 
