@@ -24,6 +24,7 @@ import com.example.e_reader.Activities.Recyclerviews.RecyclerviewAdapterHome;
 import com.example.e_reader.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -33,6 +34,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<RecyclerviewAdapterHome.Data> data = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerviewAdapterHome adapter;
+    private boolean canContinue = false;
 
 
 
@@ -52,6 +54,12 @@ public class HomeFragment extends Fragment {
                         this.theBookFileUri = data.getData();
 
                         viewModel.getAllBooks().observe(getViewLifecycleOwner(), books -> {
+                            // This makes sure this code only runs once
+                            // If we don't do this we won't be able to remove the books from the database
+                            if (!this.canContinue) {
+                                return;
+                            }
+
                             // Before we add a book to the database we check if the database already contains that book
                             // We can do this by checking if the URI is already in the database or not
                             if (books.stream().noneMatch(book -> book.getUri().equals(this.theBookFileUri.toString()))) {
@@ -61,11 +69,11 @@ public class HomeFragment extends Fragment {
                                 bookTable.setUri(this.theBookFileUri.toString());
                                 bookTable.setTitle(title);
                                 this.viewModel.insert(bookTable);
-
                             }
                             else {
                                 Toast.makeText(getContext(), "You have already added the book you selected", Toast.LENGTH_SHORT).show();
                             }
+                            this.canContinue= false;
                         });
                     }
                 }
@@ -115,6 +123,7 @@ public class HomeFragment extends Fragment {
 
 
     public void openFileDialog(View view) {
+        this.canContinue = true;
         Intent data = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         data.setType("application/epub+zip");
         data = Intent.createChooser(data, "Choose a file");

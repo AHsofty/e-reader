@@ -3,6 +3,9 @@ package com.example.e_reader.Activities.Activities;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +23,7 @@ import java.util.Objects;
 
 public class DetailActivity extends AppCompatActivity {
     private BookViewModel viewModel;
-
+    private BookTable book;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -31,6 +34,9 @@ public class DetailActivity extends AppCompatActivity {
         Objects.requireNonNull(this.getSupportActionBar()).hide();
 
         this.viewModel = new ViewModelProvider(this).get(BookViewModel.class);
+
+        ImageView deleteBtn = this.findViewById(R.id.detail_delete);
+
 
         String bookUri = getIntent().getStringExtra("bookUri");
         BookParser bookParser = new EpubParser(this, Uri.parse(bookUri)); // TODO: This is hardcoded but eventually we don't want to hardcode the book type, instead we want to check for the type of the book and make a parser based on that
@@ -45,6 +51,7 @@ public class DetailActivity extends AppCompatActivity {
                     break;
                 }
             }
+            this.book = book;
 
             if (book != null) {
                 String title = book.getTitle();
@@ -106,7 +113,13 @@ public class DetailActivity extends AppCompatActivity {
                 if ("[Unknown Identifier]".equals(identifier)) {
                     identifierTV.setVisibility(View.GONE);
                 }
+
             }
+        });
+
+        deleteBtn.setOnClickListener(view -> {
+            viewModel.delete(this.book);
+            finish();
         });
 
 
