@@ -2,10 +2,6 @@ package com.example.e_reader.Activities.Activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,10 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.e_reader.Activities.BookTypes.BookParser;
-import com.example.e_reader.Activities.BookTypes.EpubParser;
+import com.example.e_reader.Activities.BookTypes.ParserPicker;
 import com.example.e_reader.Activities.Database.BookTable;
 import com.example.e_reader.Activities.Database.BookViewModel;
-import com.example.e_reader.Activities.Recyclerviews.RecyclerviewAdapterHome;
 import com.example.e_reader.R;
 
 import java.util.Objects;
@@ -39,7 +34,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
         String bookUri = getIntent().getStringExtra("bookUri");
-        BookParser bookParser = new EpubParser(this, Uri.parse(bookUri)); // TODO: This is hardcoded but eventually we don't want to hardcode the book type, instead we want to check for the type of the book and make a parser based on that
+        BookParser bookParser = ParserPicker.getBookParser(bookUri, this);
 
         // Now we get the corresponding book object from the database
         // We can do this by querying the database for the book with the URI that we got from the intent
