@@ -22,11 +22,14 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:id="@+id/detail_delete"/>
+
             <ImageView
                     android:layout_width="375dp"
-                    android:layout_height="511dp" app:srcCompat="@drawable/ic_launcher_background"
+                    android:layout_height="511dp"
+                    app:srcCompat="@drawable/ic_launcher_background"
                     android:layout_margin="16dp"
                     android:paddingTop="30dp"
+                    android:layout_gravity="center_horizontal"
                     android:id="@+id/detail_cover"/>
             <TextView
                     android:text="Author"
