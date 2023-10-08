@@ -3,6 +3,7 @@ package com.example.e_reader.Activities.Activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     private HomeFragment homeFragment = new HomeFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
     private final int STORAGE_PERMISSION_CODE = 101;
-    public static boolean hasPermissions = false; // I am not actually sure if this is the most optimal
+    public static boolean hasPermissions = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
                 .setOnItemSelectedListener(this);
         this.bottomNavigationView.setSelectedItemId(R.id.item_2);
 
-        checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
+        checkPermission(STORAGE_PERMISSION_CODE);
 
     }
 
@@ -73,13 +74,21 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         return false;
     }
 
-    public void checkPermission(String permission, int requestCode) {
-        // Checking if permission is not granted
-        if (ContextCompat.checkSelfPermission(MainActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[] { permission }, requestCode);
+    public void checkPermission(int requestCode) {
+        String readImagePermission;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            readImagePermission = Manifest.permission.READ_MEDIA_IMAGES;
         }
         else {
+            readImagePermission = Manifest.permission.READ_EXTERNAL_STORAGE;
+        }
+
+        if (ContextCompat.checkSelfPermission(this, readImagePermission) == PackageManager.PERMISSION_GRANTED) {
             hasPermissions = true;
+        }
+        else {
+            hasPermissions = false;
+            ActivityCompat.requestPermissions(this, new String[]{readImagePermission}, requestCode);
         }
     }
 

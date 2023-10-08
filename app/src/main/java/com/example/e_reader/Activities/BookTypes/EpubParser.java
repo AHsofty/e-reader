@@ -1,6 +1,8 @@
 package com.example.e_reader.Activities.BookTypes;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
 public class EpubParser implements BookParser {
 
     private Context context;
@@ -22,14 +26,15 @@ public class EpubParser implements BookParser {
         this.context = context;
         this.uri = uri;
         try {
-            InputStream epubInputStream = this.context.getContentResolver().openInputStream(this.uri);
+            ContentResolver resolver = this.context.getContentResolver();
+            resolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            InputStream epubInputStream = resolver.openInputStream(this.uri);
             this.book = new EpubReader().readEpub(epubInputStream);
-            if (epubInputStream != null) {
-                epubInputStream.close();
-            }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override

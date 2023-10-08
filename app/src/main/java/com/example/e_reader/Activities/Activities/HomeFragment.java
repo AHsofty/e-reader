@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.viewModel = new ViewModelProvider(requireActivity()).get(BookViewModel.class);
 
         sActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -63,7 +64,6 @@ public class HomeFragment extends Fragment {
                             // We can do this by checking if the URI is already in the database or not
                             if (books.stream().noneMatch(book -> book.getUri().equals(this.theBookFileUri.toString()))) {
                                 BookParser epubParser = ParserPicker.getBookParser(String.valueOf(this.theBookFileUri), this.getActivity());
-                                assert epubParser != null;
                                 String title = epubParser.getTitle();
                                 BookTable bookTable = new BookTable();
                                 bookTable.setUri(this.theBookFileUri.toString());
@@ -101,7 +101,6 @@ public class HomeFragment extends Fragment {
             return rootview;
         }
 
-        this.viewModel = new ViewModelProvider(requireActivity()).get(BookViewModel.class);
 
         viewModel.getAllBooks().observe(getViewLifecycleOwner(), books -> {
             data.clear();
