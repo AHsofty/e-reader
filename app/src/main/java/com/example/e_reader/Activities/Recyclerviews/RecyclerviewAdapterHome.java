@@ -63,7 +63,7 @@ public class RecyclerviewAdapterHome extends RecyclerView.Adapter<RecyclerviewAd
             String bookUri = data.bookTable.getUri(); // We send this to the next activity, so we can know which book to query from the database
 
             Intent intent = new Intent(data.context, DetailActivity.class);
-            intent.putExtra("bookUri", bookUri);
+            intent.putExtra("uri", bookUri);
             data.context.startActivity(intent);
 
         });

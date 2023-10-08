@@ -12,6 +12,7 @@ import nl.siegmann.epublib.epub.EpubReader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static androidx.core.app.ActivityCompat.startActivityForResult;
@@ -21,6 +22,7 @@ public class EpubParser implements BookParser {
     private Context context;
     private Uri uri;
     private Book book;
+    private List<String> epubHtmlContentList;
 
     public EpubParser(Context context, Uri uri) {
         this.context = context;
@@ -108,4 +110,19 @@ public class EpubParser implements BookParser {
     public void setUri(Uri uri) {
         this.uri = uri;
     }
+
+    @Override
+    public String getContentOfPage(int page) {
+        if (book != null && page >= 0 && page < book.getSpine().getSpineReferences().size()) {
+            try {
+                byte[] data = book.getSpine().getSpineReferences().get(page).getResource().getData();
+                return new String(data, StandardCharsets.UTF_8);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "Invalid page number";
+    }
+
 }

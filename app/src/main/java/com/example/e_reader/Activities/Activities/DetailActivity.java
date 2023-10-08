@@ -1,6 +1,7 @@
 package com.example.e_reader.Activities.Activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
+import com.example.e_reader.Activities.Activities.Read.ReadActivity;
 import com.example.e_reader.Activities.BookTypes.BookParser;
 import com.example.e_reader.Activities.BookTypes.ParserPicker;
 import com.example.e_reader.Activities.Database.BookTable;
@@ -33,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
         ImageView deleteBtn = this.findViewById(R.id.detail_delete);
 
 
-        String bookUri = getIntent().getStringExtra("bookUri");
+        String bookUri = getIntent().getStringExtra("uri");
         BookParser bookParser = ParserPicker.getBookParser(bookUri, this);
 
         // Now we get the corresponding book object from the database
@@ -78,6 +80,13 @@ public class DetailActivity extends AppCompatActivity {
                 } else {
                     coverIV.setVisibility(View.GONE);
                 }
+
+                // The cover image is also responsible for going to the Read activity
+                coverIV.setOnClickListener(view -> {
+                    Intent intent = new Intent(this, ReadActivity.class);
+                    intent.putExtra("uri", bookUri);
+                    startActivity(intent);
+                });
 
                 String type = bookParser.getType();
                 typeTV.setText("Genre: " + type);

@@ -21,4 +21,6 @@ public interface BookParser {
     String getType();
 
     void setUri(Uri uri);
+
+    String getContentOfPage(int page);
 }
