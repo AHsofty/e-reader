@@ -52,11 +52,12 @@ public class RecyclerviewAdapterHome extends RecyclerView.Adapter<RecyclerviewAd
         // The URI is actually a reference to the path of the .epub file
         // So all we have to do is store the first page of that .epub file into the holder.cardImage
 
-        BookParser epubParser = ParserPicker.getBookParser(data.bookTable.getUri(), data.context);
-
-        assert epubParser != null;
-        Bitmap coverBitmap = epubParser.getCoverImage();
-        holder.cardImage.setImageBitmap(coverBitmap);
+        new Thread(() -> {
+            BookParser epubParser = ParserPicker.getBookParser(data.bookTable.getUri(), data.context);
+            assert epubParser != null;
+            Bitmap coverBitmap = epubParser.getCoverImage();
+            holder.cardImage.post(() -> holder.cardImage.setImageBitmap(coverBitmap));
+        }).start();
 
         holder.card.setOnClickListener(view -> {
             String bookUri = data.bookTable.getUri(); // We send this to the next activity, so we can know which book to query from the database
