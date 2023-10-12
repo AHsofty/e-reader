@@ -45,10 +45,16 @@ dependencies {
     implementation files('libs/epublib-core-4.0.jar')
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.9'
 
-
-
     def room_version = "2.5.2"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    def version = "2.3.0"
+    implementation "org.readium.kotlin-toolkit:readium-shared:$version"
+    implementation "org.readium.kotlin-toolkit:readium-streamer:$version"
+    implementation "org.readium.kotlin-toolkit:readium-navigator:$version"
+    implementation "org.readium.kotlin-toolkit:readium-opds:$version"
+    implementation "org.readium.kotlin-toolkit:readium-lcp:$version"
+
 }

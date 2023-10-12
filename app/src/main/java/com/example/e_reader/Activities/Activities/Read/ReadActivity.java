@@ -16,9 +16,12 @@ public class ReadActivity extends AppCompatActivity {
         String fileType = ParserPicker.getFileType(uri, this);
 
         if ("application/epub+zip".equals(fileType)) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.readerContainer, new ReadEpubFragment())
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_reader_container, new ReadEpubFragment())
                     .commit();
+
+
         }
     }
 }
