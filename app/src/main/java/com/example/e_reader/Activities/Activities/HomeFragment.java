@@ -68,6 +68,7 @@ public class HomeFragment extends Fragment {
                                 BookTable bookTable = new BookTable();
                                 bookTable.setUri(this.theBookFileUri.toString());
                                 bookTable.setTitle(title);
+                                bookTable.setLastPage("-1");
                                 this.viewModel.insert(bookTable);
                             }
                             else {

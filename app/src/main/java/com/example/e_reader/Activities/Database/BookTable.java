@@ -9,6 +9,7 @@ public class BookTable {
     private int id;
     private String title;
     private String uri;
+    private String lastPage;
 
     public int getId() {
         return id;
@@ -32,5 +33,13 @@ public class BookTable {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public String getLastPage() {
+        return lastPage;
+    }
+
+    public void setLastPage(String lastPage) {
+        this.lastPage = lastPage;
     }
 }

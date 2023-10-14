@@ -56,5 +56,6 @@ dependencies {
     implementation "org.readium.kotlin-toolkit:readium-navigator:$version"
     implementation "org.readium.kotlin-toolkit:readium-opds:$version"
     implementation "org.readium.kotlin-toolkit:readium-lcp:$version"
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
 
 }
