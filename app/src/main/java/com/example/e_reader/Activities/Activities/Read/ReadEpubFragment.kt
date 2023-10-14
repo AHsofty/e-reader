@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import androidx.lifecycle.lifecycleScope
 import com.example.e_reader.R
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -87,7 +88,15 @@ class ReadEpubFragment : Fragment() {
             val navigatorFactory = EpubNavigatorFactory(pub)
 
             requireActivity().runOnUiThread {
-                val fragmentFactory = navigatorFactory.createFragmentFactory(initialLocator = Locator.fromJSON(JSONObject(myBook.lastPage)))
+
+                val fragmentFactory: FragmentFactory
+                if (myBook.lastPage != "-1") {
+                    fragmentFactory = navigatorFactory.createFragmentFactory(initialLocator = Locator.fromJSON(JSONObject(myBook.lastPage)))
+                }
+                else {
+                    fragmentFactory = navigatorFactory.createFragmentFactory(initialLocator = null)
+                }
+
 
                 childFragmentManager.fragmentFactory = fragmentFactory
                 childFragmentManager.commitNow {
