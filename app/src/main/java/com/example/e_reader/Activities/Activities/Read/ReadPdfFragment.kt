@@ -22,8 +22,7 @@ class ReadPdfFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("lol", "IT WORKS")
-        
+
 
         return inflater.inflate(R.layout.fragment_read_pdf, container, false)
     }
@@ -31,11 +30,15 @@ class ReadPdfFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val uri = requireActivity().intent.getStringExtra("uri")
-        val bookParser = PdfParser(requireContext(), Uri.parse(uri)) // We know we want the pdf object
-        val images: MutableList<Bitmap> = bookParser.getAllPages()
+        Thread {
+            val uri = requireActivity().intent.getStringExtra("uri")
+            val bookParser = PdfParser(requireContext(), Uri.parse(uri))
+            val images: MutableList<Bitmap> = bookParser.getAllPages()
 
-        val viewPager: ViewPager2 = requireActivity().findViewById(R.id.pdfViewPager)
-        viewPager.adapter = BitmapAdapter(images)
+            activity?.runOnUiThread {
+                val viewPager: ViewPager2 = requireActivity().findViewById(R.id.pdfViewPager)
+                viewPager.adapter = BitmapAdapter(images)
+            }
+        }.start()
     }
 }
