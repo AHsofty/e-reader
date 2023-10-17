@@ -1,6 +1,7 @@
 package com.example.e_reader.Activities.BookTypes
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -16,7 +17,9 @@ class PdfParser(private val context: Context, private val uri: Uri) : BookParser
 
     init {
         try {
-            val fileDescriptor: ParcelFileDescriptor? = context.contentResolver.openFileDescriptor(uri, "r")
+            val resolver = context.contentResolver
+            resolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            val fileDescriptor: ParcelFileDescriptor? = resolver.openFileDescriptor(uri, "r")
             pdfRenderer = fileDescriptor?.let { PdfRenderer(it) }
         }
         catch (e: IOException) {
