@@ -20,7 +20,13 @@ public class ReadActivity extends AppCompatActivity {
                     .beginTransaction()
                     .replace(R.id.fragment_reader_container, new ReadEpubFragment())
                     .commit();
+        }
 
+        if ("application/pdf".equals(fileType)) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_reader_container, new ReadPdfFragment())
+                    .commit();
 
         }
     }

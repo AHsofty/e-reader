@@ -22,7 +22,6 @@ public class EpubParser implements BookParser {
     private Context context;
     private Uri uri;
     private Book book;
-    private List<String> epubHtmlContentList;
 
     public EpubParser(Context context, Uri uri) {
         this.context = context;
@@ -111,18 +110,5 @@ public class EpubParser implements BookParser {
         this.uri = uri;
     }
 
-    @Override
-    public String getContentOfPage(int page) {
-        if (book != null && page >= 0 && page < book.getSpine().getSpineReferences().size()) {
-            try {
-                byte[] data = book.getSpine().getSpineReferences().get(page).getResource().getData();
-                return new String(data, StandardCharsets.UTF_8);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return "Invalid page number";
-    }
 
 }

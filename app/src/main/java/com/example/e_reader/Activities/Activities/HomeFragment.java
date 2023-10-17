@@ -125,7 +125,9 @@ public class HomeFragment extends Fragment {
     public void openFileDialog(View view) {
         this.canContinue = true;
         Intent data = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        data.setType("application/epub+zip");
+        data.setType("*/*");
+        String[] mimetypes = {"application/epub+zip", "application/pdf"};
+        data.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
         data = Intent.createChooser(data, "Choose a file");
         sActivityResultLauncher.launch(data);
     }

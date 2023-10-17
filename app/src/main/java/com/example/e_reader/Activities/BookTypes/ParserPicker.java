@@ -9,6 +9,10 @@ public class ParserPicker {
             return new EpubParser(context, Uri.parse(uri));
         }
 
+        if (getFileType(uri, context).equals("application/pdf")) {
+            return new PdfParser(context, Uri.parse(uri));
+        }
+
         return null;
     }
 
