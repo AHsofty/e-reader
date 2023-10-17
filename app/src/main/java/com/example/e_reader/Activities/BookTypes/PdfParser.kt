@@ -30,6 +30,10 @@ class PdfParser(private val context: Context, private val uri: Uri) : BookParser
         currentPage?.close()
         currentPage = pdfRenderer?.openPage(0)
         val bitmap: Bitmap = Bitmap.createBitmap(currentPage!!.width, currentPage!!.height, Bitmap.Config.ARGB_8888)
+
+        val canvas = Canvas(bitmap)
+        canvas.drawColor(Color.WHITE)
+
         currentPage?.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
         return bitmap
     }
