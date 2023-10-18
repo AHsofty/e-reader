@@ -1,37 +1,33 @@
 // Special thanks to IPSVN for helping me with this file
 
-package com.example.e_reader.Activities.Activities.Read
+package com.example.e_reader.Activities.Read
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
+import androidx.fragment.app.commitNow
 import androidx.lifecycle.lifecycleScope
+import com.example.e_reader.Database.BookTable
+import com.example.e_reader.Database.BookViewModel
 import com.example.e_reader.R
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import org.readium.r2.navigator.epub.EpubNavigatorFactory
 import org.readium.r2.navigator.epub.EpubNavigatorFragment
 import org.readium.r2.shared.ExperimentalReadiumApi
+import org.readium.r2.shared.publication.Locator
 import org.readium.r2.shared.publication.asset.FileAsset
 import org.readium.r2.streamer.Streamer
 import java.io.File
 import java.io.FileOutputStream
-import androidx.fragment.app.commitNow
-import com.example.e_reader.Activities.Database.BookTable
-import com.example.e_reader.Activities.Database.BookViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import nl.siegmann.epublib.domain.Book
-import org.json.JSONObject
-import org.readium.r2.shared.publication.Locator
-import java.util.Locale
 
 
 class ReadEpubFragment : Fragment() {

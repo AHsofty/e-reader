@@ -1,4 +1,4 @@
-package com.example.e_reader.Activities.Database;
+package com.example.e_reader.Database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.*;

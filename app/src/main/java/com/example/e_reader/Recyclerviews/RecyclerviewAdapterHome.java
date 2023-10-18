@@ -1,4 +1,4 @@
-package com.example.e_reader.Activities.Recyclerviews;
+package com.example.e_reader.Recyclerviews;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.e_reader.Activities.Activities.DetailActivity;
-import com.example.e_reader.Activities.BookTypes.BookParser;
-import com.example.e_reader.Activities.BookTypes.ParserPicker;
-import com.example.e_reader.Activities.Database.BookTable;
+import com.example.e_reader.Activities.DetailActivity;
+import com.example.e_reader.BookTypes.BookParser;
+import com.example.e_reader.BookTypes.ParserPicker;
+import com.example.e_reader.Database.BookTable;
 import com.example.e_reader.R;
 
 import java.util.List;

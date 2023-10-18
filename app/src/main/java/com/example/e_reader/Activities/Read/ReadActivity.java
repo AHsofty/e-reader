@@ -1,8 +1,8 @@
-package com.example.e_reader.Activities.Activities.Read;
+package com.example.e_reader.Activities.Read;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.e_reader.Activities.BookTypes.ParserPicker;
+import com.example.e_reader.BookTypes.ParserPicker;
 import com.example.e_reader.R;
 
 public class ReadActivity extends AppCompatActivity {

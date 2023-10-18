@@ -1,19 +1,19 @@
-package com.example.e_reader.Activities.Activities;
+package com.example.e_reader.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.e_reader.Activities.Activities.Read.ReadActivity;
-import com.example.e_reader.Activities.BookTypes.BookParser;
-import com.example.e_reader.Activities.BookTypes.ParserPicker;
-import com.example.e_reader.Activities.Database.BookTable;
-import com.example.e_reader.Activities.Database.BookViewModel;
+import com.example.e_reader.Activities.Read.ReadActivity;
+import com.example.e_reader.BookTypes.BookParser;
+import com.example.e_reader.BookTypes.ParserPicker;
+import com.example.e_reader.Database.BookTable;
+import com.example.e_reader.Database.BookViewModel;
 import com.example.e_reader.R;
 
 import java.util.Objects;

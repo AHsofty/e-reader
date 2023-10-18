@@ -22,13 +22,13 @@
             android:theme="@style/Theme.Ereader"
             tools:targetApi="31">
         <activity
-                android:name=".Activities.Activities.Read.ReadActivity"
+                android:name=".Activities.Read.ReadActivity"
                 android:exported="false"/>
         <activity
-                android:name=".Activities.Activities.DetailActivity"
+                android:name=".Activities.DetailActivity"
                 android:exported="false"/>
         <activity
-                android:name=".Activities.Activities.MainActivity"
+                android:name=".Activities.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

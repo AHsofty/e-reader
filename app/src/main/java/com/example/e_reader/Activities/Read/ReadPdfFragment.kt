@@ -1,18 +1,15 @@
-package com.example.e_reader.Activities.Activities.Read
+package com.example.e_reader.Activities.Read
 
 import BitmapAdapter
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.e_reader.Activities.BookTypes.BookParser
-import com.example.e_reader.Activities.BookTypes.ParserPicker
-import com.example.e_reader.Activities.BookTypes.PdfParser
+import com.example.e_reader.BookTypes.PdfParser
 import com.example.e_reader.R
 
 

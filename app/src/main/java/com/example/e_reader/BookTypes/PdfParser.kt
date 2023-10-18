@@ -1,4 +1,4 @@
-package com.example.e_reader.Activities.BookTypes
+package com.example.e_reader.BookTypes
 
 import android.content.Context
 import android.content.Intent

@@ -1,4 +1,4 @@
-package com.example.e_reader.Activities.Activities;
+package com.example.e_reader.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,20 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.e_reader.Activities.BookTypes.BookParser;
-import com.example.e_reader.Activities.BookTypes.ParserPicker;
-import com.example.e_reader.Activities.Database.BookTable;
-import com.example.e_reader.Activities.Database.BookViewModel;
-import com.example.e_reader.Activities.Recyclerviews.RecyclerviewAdapterHome;
+import com.example.e_reader.BookTypes.BookParser;
+import com.example.e_reader.BookTypes.ParserPicker;
+import com.example.e_reader.Database.BookTable;
+import com.example.e_reader.Database.BookViewModel;
 import com.example.e_reader.R;
+import com.example.e_reader.Recyclerviews.RecyclerviewAdapterHome;
 
 import java.util.ArrayList;
 

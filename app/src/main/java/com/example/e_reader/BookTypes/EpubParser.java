@@ -1,4 +1,4 @@
-package com.example.e_reader.Activities.BookTypes;
+package com.example.e_reader.BookTypes;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -12,10 +12,7 @@ import nl.siegmann.epublib.epub.EpubReader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-
-import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class EpubParser implements BookParser {
 
