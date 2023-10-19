@@ -10,6 +10,7 @@ class BitmapAdapter(private val bitmaps: List<Bitmap>) : RecyclerView.Adapter<Bi
 
     inner class BitmapViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val photoView: PhotoView = view.findViewById(R.id.bitmapPhotoView)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BitmapViewHolder {
@@ -19,9 +20,11 @@ class BitmapAdapter(private val bitmaps: List<Bitmap>) : RecyclerView.Adapter<Bi
 
     override fun onBindViewHolder(holder: BitmapViewHolder, position: Int) {
         holder.photoView.setImageBitmap(bitmaps[position])
+
     }
 
     override fun getItemCount(): Int {
         return bitmaps.size
     }
+
 }
