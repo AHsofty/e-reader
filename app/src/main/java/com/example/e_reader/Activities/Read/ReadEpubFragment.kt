@@ -110,7 +110,7 @@ class ReadEpubFragment : Fragment() {
                         myBook.lastPage = it.toJSON().toString()
 
                         // The information regarding this can be located in the Locator.kt file in the r2-shared library
-                        var progression: Double = it.locations.totalProgression.toString().toDouble() * 100
+                        var progression: Double = (it.locations.totalProgression?.toString()?.toDouble() ?: 0.0) * 100
                         progression = round(progression * 100) / 100
 
                         prgressTextview.text = "${progression}%"
