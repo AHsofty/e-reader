@@ -2,11 +2,13 @@
 
 package com.example.e_reader.Activities.Read
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
@@ -28,7 +30,7 @@ import org.readium.r2.shared.publication.asset.FileAsset
 import org.readium.r2.streamer.Streamer
 import java.io.File
 import java.io.FileOutputStream
-
+import kotlin.math.round
 
 class ReadEpubFragment : Fragment() {
 
@@ -36,6 +38,7 @@ class ReadEpubFragment : Fragment() {
     private lateinit var navigator: EpubNavigatorFragment
     private lateinit var viewModel: BookViewModel
     private lateinit var myBook: BookTable
+    private lateinit var prgressTextview: TextView
 
 
     override fun onCreateView(
@@ -46,10 +49,12 @@ class ReadEpubFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_read_epub, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     @OptIn(ExperimentalReadiumApi::class, DelicateCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         this.viewModel = BookViewModel(requireActivity().application)
+        this.prgressTextview = requireActivity().findViewById(R.id.epub_progress)
 
         val uri = requireActivity().intent.getStringExtra("uri")
 
@@ -103,6 +108,13 @@ class ReadEpubFragment : Fragment() {
                 navigator.currentLocator
                     .onEach {
                         myBook.lastPage = it.toJSON().toString()
+
+                        // The information regarding this can be located in the Locator.kt file in the r2-shared library
+                        var progression: Double = it.locations.totalProgression.toString().toDouble() * 100
+                        progression = round(progression * 100) / 100
+
+                        prgressTextview.text = "${progression}%"
+
                         viewModel.update(myBook)
                     }
                     .launchIn(this)
