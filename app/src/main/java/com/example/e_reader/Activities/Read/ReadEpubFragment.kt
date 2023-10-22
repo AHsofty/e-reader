@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
@@ -52,6 +53,8 @@ class ReadEpubFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     @OptIn(ExperimentalReadiumApi::class, DelicateCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        (requireActivity() as? AppCompatActivity)?.supportActionBar?.hide()
 
         this.viewModel = BookViewModel(requireActivity().application)
         this.prgressTextview = requireActivity().findViewById(R.id.epub_progress)
